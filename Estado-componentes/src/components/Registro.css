@@ -1,0 +1,10 @@
+.stack{
+    border-radius: 20px;
+    background-color: antiquewhite;
+    height: 37rem;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
