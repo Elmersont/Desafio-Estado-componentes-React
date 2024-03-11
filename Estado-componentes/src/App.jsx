@@ -3,12 +3,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Registro from './components/Registro'
 import Stack from 'react-bootstrap/Stack';
+import { useState } from 'react';
+import Alerta from './components/Alert'
+
+
 
 function App() {
 
   const [mensaje, setMensaje] = useState('');
-  const [tipoMensaje, setTipoMensaje] = useState('');
-  
+  const [color, setColor] = useState('');
+
+  const handleAlerta = (mensaje, color) => {
+    setMensaje(mensaje);
+    setColor(color);
+  };
+
   return (
     <>
       <Container   gap={1}>
@@ -21,10 +30,10 @@ function App() {
 
         </div>
 
-        <Registro setMessage={setMensaje} setTypeMessage={setTipoMensaje}>
+        <Registro onAlerta={handleAlerta}>
         </Registro>  
 
-        {mensaje && <Alert message={mensaje} variant={tipoMensaje} />}
+        {mensaje && <Alerta mensaje={mensaje} color={color} />}
 
         </Stack> 
        

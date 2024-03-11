@@ -5,8 +5,9 @@ import './Registro.css'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import React from 'react';
 
-function Registro() {
+function Registro({ onAlerta }) {
         return (
             <>
     
@@ -36,7 +37,7 @@ function Registro() {
 
                 <div className="p-2">
 
-                    <Formulario></Formulario>
+                    <Formulario onAlerta={onAlerta} ></Formulario>
 
                 </div> 
 

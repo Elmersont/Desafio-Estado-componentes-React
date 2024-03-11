@@ -11,7 +11,6 @@ const SocialButton = (props) => {
     } else {
       icon = faLinkedin;
     }
-  
     return (
         
                 <FontAwesomeIcon icon={icon} size='2xl'/>

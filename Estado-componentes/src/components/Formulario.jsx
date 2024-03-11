@@ -2,58 +2,41 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {useState} from 'react'
-import Alert from './Alert'
-const Formulario = () => {
+
+
+const Formulario = ({onAlerta}) => {
 
     const [nombre, setNombre] = useState("")
     const [email, setEmail] = useState("")
     const [contraseña, setContraseña] = useState("")
     const [confirmarContraseña, setConfirmarContraseña] = useState("")
-    const [errorIncompleto, setErrorIncompleto] = useState(false);
-    const [error, setError] = useState("");
-    const [confirmación, setConfirmación] =useState("")
-
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value)
-    }
-    const handleNombreChange = (event) => {
-        setNombre(event.target.value)
-    }
-    const handleContraseñaChange = (event) => {
-        setContraseña(event.target.value)
-    }
-    const handleConfirmarContraseñaChange = (event) => {
-        setConfirmarContraseña(event.target.value)
-    }
-
-    const validarDatos = (e) => {
+    
+  
+    const handleSumit = (e) => {
         e.preventDefault();
         if (nombre === '' || email === '' || contraseña === '' || confirmarContraseña === '')
     {
-            setErrorIncompleto(true);
-            setError('Completa todos los campos!')
+            onAlerta('Completa todos los campos!', 'danger')
     return; }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            setErrorIncompleto(true);
-            setError('El formato del correo electrónico no es válido')
+            onAlerta('El formato del correo electrónico no es válido', 'danger')
         return;
         }
 
         if (contraseña !== confirmarContraseña) {
-            setErrorIncompleto(true);
-            setError('Las contraseñas no coinciden');
+            onAlerta('Las contraseñas no coinciden', 'danger')
         return;
         }
-        
-        setConfirmación('Tu registro fue un exito!')
-        setErrorIncompleto(false);
-        setError('')
+
+        onAlerta('Tu registro fue un exito!', 'success')
         setNombre('');
         setEmail('');
         setContraseña('');
         setConfirmarContraseña('');
+        return
+        
     };
 
 
@@ -63,29 +46,26 @@ const Formulario = () => {
                     <h6>O usa tu email para registrarte</h6>
                 </div>
 
-               <Form onSubmit={validarDatos}>
+               <Form onSubmit={handleSumit}>
 
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-                        <Form.Control type="text" placeholder="Nombre" value= {nombre} onChange={handleNombreChange}/>
+                    <Form.Group className="mb-3" controlId="nombre" >
+                        <Form.Control type="text" placeholder="Nombre" value= {nombre} onChange={(e) => setNombre(e.target.value)}/>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Control type="email" placeholder="Tuemail@ejemplo.com" value= {email} onChange={handleEmailChange}/>
+                    <Form.Group className="mb-3" controlId="email">
+                        <Form.Control type="email" placeholder="Tuemail@ejemplo.com" value= {email} onChange={(e) => setEmail(e.target.value)}/>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Control type="text" placeholder="Contraseña" value= {contraseña} onChange={handleContraseñaChange}/>
+                    <Form.Group className="mb-3" controlId="contraseña">
+                        <Form.Control type="password" placeholder="Contraseña" value= {contraseña} onChange={(e) => setContraseña(e.target.value)}/>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Control type="text" placeholder="Confirmar Contraseña" value= {confirmarContraseña} onChange={handleConfirmarContraseñaChange}/>
+                    <Form.Group className="mb-3" controlId="confirmarContraseña">
+                        <Form.Control type="password" placeholder="Confirmar Contraseña" value= {confirmarContraseña} onChange={(e) => setConfirmarContraseña(e.target.value)}/>
                     </Form.Group>
 
                     <Button variant="success" type="submit" style={{width:"30rem"}}>Registrarse</Button>{' '}   
-
-                    {errorIncompleto && <Alert mensaje={error} color="danger"/>}
-                    {confirmación && <Alert mensaje={confirmación} color="success"/>}           
-
+         
                 </Form>
                             
             </>
